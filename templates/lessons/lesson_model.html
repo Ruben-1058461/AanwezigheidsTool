@@ -1,0 +1,103 @@
+<!-- Modal -->
+<div class="modal fade" id="lessonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color:#272727;">Les toevoegen / wijzigen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ messages[0] }}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                <form action="/lessons/" method="post" id="lessonForm">
+                    <input type="hidden" id="inputId" name="id">
+                    <div class="form-group">
+                        <label for="inputName">Naam</label>
+                        <input type="text" name="name" required class="form-control" id="inputName">
+                    </div>
+                    <div class="form-group">
+                        <label for="textareaQuestion">Vraag (optioneel)</label>
+                        <textarea name="question" id="textareaQuestion" class="form-control" cols="30"
+                                  rows="5"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="selectClasses">Klassen</label>
+                        <select required name="classes" class="form-control" id="selectClasses" multiple>
+                            {% for class in classes %}
+                            <option value="{{ class.id }}">{{ class.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <small>Selecteer meerdere opties door de Ctrl-toets ingedrukt te houden terwijl u klikt.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDate">Datum</label>
+                        <input type="text" name="date" required class="form-control datepicker" autocomplete="off"
+                               id="inputDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputStartTime">Start tijd</label>
+                        <select required name="start_time" class="form-control" id="inputStartTime">
+                            <option value="09:00">09:00 AM</option>
+                            <option value="09:30">09:30 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="10:30">10:30 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="11:30">11:30 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="12:30">12:30 PM</option>
+                            <option value="13:00">01:00 PM</option>
+                            <option value="13:30">01:30 PM</option>
+                            <option value="14:00">02:00 PM</option>
+                            <option value="14:30">02:30 PM</option>
+                            <option value="15:00">03:00 PM</option>
+                            <option value="15:30">03:30 PM</option>
+                            <option value="16:00">04:00 PM</option>
+                            <option value="16:30">04:30 PM</option>
+                            <option value="17:00">05:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEndTime">Eind tijd</label>
+                        <select required name="end_time" class="form-control" id="inputEndTime">
+                            <option value="09:00">09:00 AM</option>
+                            <option value="09:30">09:30 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="10:30">10:30 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="11:30">11:30 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="12:30">12:30 PM</option>
+                            <option value="13:00">01:00 PM</option>
+                            <option value="13:30">01:30 PM</option>
+                            <option value="14:00">02:00 PM</option>
+                            <option value="14:30">02:30 PM</option>
+                            <option value="15:00">03:00 PM</option>
+                            <option value="15:30">03:30 PM</option>
+                            <option value="16:00">04:00 PM</option>
+                            <option value="16:30">04:30 PM</option>
+                            <option value="17:00">05:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer mt-4 px-0">
+                        <button type="button" class="btn" style="background: #D30E4C; color: white"
+                                data-dismiss="modal">Close
+                        </button>
+                        <button type="submit" id="btnEdit" class="btn" style="background: #3CAAD7;  color: white">Save
+                            changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+

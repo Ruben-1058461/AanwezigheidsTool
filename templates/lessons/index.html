@@ -1,0 +1,118 @@
+{% include "layout.html" %}
+{% include "/lessons/lesson_model.html" %}
+{% include "/lessons/signout_modal.html" %}
+{% block content %}
+{% include "navigation.html" %}
+<div class="lessons container">
+    <div class="index" id="lessons">
+        {% include "delete_row_confirmation_modal.html" %}
+        <div class="top-content">
+            <h1><span class="material-icons" style="font-size: 40px;">school</span>Lessen</h1>
+            {% if session["user_role"] == 2 %}
+
+            <a href="#" class="button" id="btnCreate" data-toggle="modal" data-target="#lessonModal">Les toevoegen</a>
+            {% endif %}
+        </div>
+        {% if session["user_role"] == 2 %}
+        <div class="accordion mb-5" id="filterAccordion">
+            <div class="card">
+                <div class="card-header" id="filterAccordionHeader">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left text-dark" type="button" data-toggle="collapse"
+                                data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <span class="material-icons">filter_alt</span>Filters
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="filterAccordionHeader"
+                     data-parent="#filterAccordion">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="filterName">Naam</label>
+                            <input type="text" name="name" required class="form-control w-25" id="filterName">
+                        </div>
+                        <div class="form-group">
+                            <label for="filterStartDate">Begin datum</label>
+                            <input type="text" name="date" required class="form-control datepickerFilter w-25"
+                                   autocomplete="off" id="filterStartDate"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="filterEndDate">Eind datum</label>
+                            <input type="text" name="date" required class="form-control datepickerFilter w-25"
+                                   autocomplete="off" id="filterEndDate"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if session["user_role"] == 1 %}
+        <table class="table">
+            <thead style="background-color: black; color: #fff;">
+            <tr>
+                <th scope="Name">Naam</th>
+                <th scope="Date">Datum</th>
+                <th scope="Starttime">Begintijd</th>
+                <th scope="Endtime">Eindtijd</th>
+                <th scope="Signout">Afmelden</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for lesson in class_lessons %}
+            <tr {% if lesson.absent %}class="absent" {% endif %}>
+                <td>{{ lesson.name }}</td>
+                <td>{{ lesson.date }}</td>
+                <td>{{ lesson.start_time }}</td>
+                <td>{{ lesson.end_time }}</td>
+                <td><a id="signoutBtn" data-toggle="modal" data-target="#signoutModal" data-lesson-id="{{ lesson.id }}"
+                       data-student-id="{{ session["user_id"] }}" href="#">Afmelden</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% if session["user_role"] == 2 or session["user_role"] == 3 %}
+        <table class="table">
+            <thead style="background-color: black; color: #fff;">
+            <tr>
+                <th scope="Name">Naam</th>
+                <th scope="Question">Vraag</th>
+                <th scope="Classes">Klassen</th>
+                <th scope="Date">Datum</th>
+                <th scope="Starttime">Begintijd</th>
+                <th scope="Endtime">Eindtijd</th>
+                <th scope="QR">QR</th>
+                <th scope="Attendance">Aanwezigheid</th>
+                <th scope="Delete">Verwijderen</th>
+                <th scope="Change">Wijzigen</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for lesson in lessons %}
+            <tr>
+                <td>{{ lesson.name }}</td>
+                <td style="max-width: 200px; overflow: hidden">{{ lesson.question }}</td>
+                <td>
+                    {% for class in lesson.classes %}
+                    {{ class.name }}
+                    {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>{{ lesson.date }}</td>
+                <td>{{ lesson.start_time }}</td>
+                <td>{{ lesson.end_time }}</td>
+                <td><a href="/check-in/{{ lesson.id }}" class="blue">QR-code</a></td>
+                <td><a href="/lesson/{{ lesson.id }}/aanwezigheid" class="blue">Aanwezigheid</a></td>
+                <td><a href="#" class="red showDeleteRowModal" data-id="{{ lesson.id }}" data-toggle="modal"
+                       data-target="#deleteRowConfirmation">Verwijderen</a></td>
+                <td><a href="#" class="blue" data-id="{{ lesson.id }}" id="btnEdit" data-toggle="modal"
+                       data-target="#lessonModal">Wijzigen</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

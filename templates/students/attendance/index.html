@@ -1,0 +1,38 @@
+{% include "layout.html" %}
+{% include "/students/modals/student_modal_create.html" %}
+{% include "/students/modals/student_modal_update.html" %}
+{% include "delete_row_confirmation_modal.html" %}
+{% block content %}
+{% include "navigation.html" %}
+<div class="container">
+    <div class="index" id="attendance">
+        <div class="top-content">
+            <h1>Aanwezigheid</h1>
+            <a href="/studenten_overzicht" class="button">Naar studenten</a>
+        </div>
+        <table class="table">
+            <thead style="background-color: black; color: #fff;">
+            <tr>
+                <th scope="Les">Les</th>
+                <th scope="Checkin-time">Inklok tijd</th>
+                <th scope="Checkin-time">Mood</th>
+                <th scope="Checkin-time">Antwoord vraag</th>
+                <th scope="Delete">Verwijderen</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for attendance in attendances %}
+            <tr>
+                <td>{{ attendance.lesson.name }}</td>
+                <td>{{ attendance.checkin_time.strftime('%H:%M:%S') }}</td>
+                <td>{{ attendance.mood }}</td>
+                <td>{{ attendance.question_answer }}</td>
+                <td><a href="#" data-id="{{ attendance.student_id }}" class="red showDeleteRowModal" data-toggle="modal" data-target="#deleteRowConfirmation">Verwijderen</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

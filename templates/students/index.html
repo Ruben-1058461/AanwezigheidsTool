@@ -1,0 +1,65 @@
+{% include "layout.html" %}
+{% include "/students/modals/student_modal_create.html" %}
+{% include "/students/modals/student_modal_update.html" %}
+{% block content %}
+{% include "navigation.html" %}
+<div class="container students">
+    {% include "delete_row_confirmation_modal.html" %}
+    <div class="index" id="students">
+        <div class="top-content">
+            <h1><span class="material-icons" style="font-size: 40px;">person</span> Studenten</h1>
+            <a href="#" class="button" id="btnCreate" data-toggle="modal" data-target="#studentModalCreate">Student toevoegen</a>
+        </div>
+        <div class="accordion mb-5" id="filterAccordion">
+            <div class="card">
+              <div class="card-header" id="filterAccordionHeader">
+                <h2 class="mb-0">
+                  <button class="btn btn-link btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <span class="material-icons">filter_alt</span>Filters                    
+                  </button>
+                </h2>
+              </div>
+              <div id="collapseOne" class="collapse" aria-labelledby="filterAccordionHeader" data-parent="#filterAccordion">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="filterName">Naam</label>
+                        <input type="text" name="name" required class="form-control w-25" id="filterName">
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <table class="table">
+            <thead style="background-color: black; color: #fff;">
+            <tr>
+                <th scope="Name">Naam</th>
+                <th scope="Date">E-mailadres</th>
+                <th scope="Starttime">Studentnummer</th>
+                <th scope="Classes">Klassen</th>
+                <th scope="Delete">Verwijderen</th>
+                <th scope="Change">Wijzig</th>
+                <th scope="Change">Aanwezigheid</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.name }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.student_number }}</td>
+                <td>
+                    {% for class in student.classes %}
+                    {{ class.name }}
+                    {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td><a href="#" class="red showDeleteRowModal" data-id="{{ student.id }}" data-toggle="modal" data-target="#deleteRowConfirmation">Verwijderen</a></td>
+                <td><a href="#" class="blue" data-id="{{ student.id }}" id="btnEdit" data-toggle="modal" data-target="#studentModalUpdate">Wijzigen</a></td>
+                <td><a href="/students/{{ student.student_number }}/aanwezigheid" class="blue">Aanwezigheid</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+<!-- Modal for classes -->
+<div class="modal fade" id="classModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color:#272727;">
+                    Klas toevoegen / wijzigen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                <div class="modal-body">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ messages[0] }}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                <form action="/classes/" method="post" id="classForm">
+                    <input type="hidden" id="inputId" name="id">
+                    <div class="form-group">
+                        <label for="inputName">Naam</label>
+                        <input type="text" name="name" required class="form-control" id="inputName">
+                    </div>
+                </div>
+                    <div class="modal-footer mt-4 px-0">
+                        <button type="button" class="btn" style="background: #D30E4C; color: white"
+                                data-dismiss="modal">Close
+                        </button>
+                        <button type="submit" id="btnEdit" class="btn"
+                                style="background: #3CAAD7;  color: white">Save
+                            changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

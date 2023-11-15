@@ -1,0 +1,63 @@
+{% include "layout.html" %}
+{% include "/lessons/lesson_model.html" %}
+{% block content %}
+{% include "navigation.html" %}
+
+<div class="container">
+    <div class="index pb-4" id="attendance" data-id="{{ id }}">
+        {% include "delete_row_confirmation_modal.html" %}
+        <div class="top-content">
+            <h1>Aanwezigheid</h1>
+            <a href="/lessen_overzicht" class="button">Naar lessen</a>
+        </div>
+        <div class="d-flex justify-content-between align-items-center top mt-5 mb-3">
+            <h2>Aanwezig</h2>
+            <p id="attended-count">Aantal aanwezig: {{ attended_students|length }}</p>
+
+        </div>
+        <table class="table text-success">
+            <thead style="background-color: black; color: #fff;">
+            <tr>
+                <th scope="Student">Student</th>
+                <th scope="Checkin-time">Inklok tijd</th>
+                <th scope="Checkin-time">Mood</th>
+                <th scope="Checkin-time">Antwoord vraag</th>
+                <th scope="Delete">Verwijderen</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for attended_student in attended_students %}
+            <tr>
+                <td>{{ attended_student.name }}</td>
+                <td>{{ attended_student.checkin_time.strftime('%H:%M:%S') }}</td>
+                <td>{{ attended_student.mood }}</td>
+                <td>{{ attended_student.question_answer }}</td>
+                <td><a href="" data-id="{{ attended_student.id }}" class="red showDeleteRowModal" data-toggle="modal"
+                       data-target="#deleteRowConfirmation">Verwijderen</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <h2 class="mt-5 mb-3">Nog niet aanwezig</h2>
+        <table class="absent-table table pb-5 text-danger">
+            <thead style="background-color: black; color: #fff;">
+            <tr>
+                <th scope="Student">Naam</th>
+                <th scope="Student">Studentnummer</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for absent_student in absent_students %}
+            {% if absent_student.name and absent_student.id %}
+            <tr data-id="{{ absent_student.id }}">
+                <td>{{ absent_student.name }}</td>
+                <td>{{ absent_student.id }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

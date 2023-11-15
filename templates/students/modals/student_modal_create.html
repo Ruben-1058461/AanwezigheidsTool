@@ -1,0 +1,52 @@
+<!-- Modal -->
+<div class="modal fade" id="studentModalCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color:#272727;">Student toevoegen/wijzigen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="error"></div>
+                <form action="/students/" method="post" id="studentForm">
+                    <input type="hidden" id="inputId" name="id">
+                    <div class="form-group">
+                        <label for="inputName">Naam</label>
+                        <input type="text" name="name" required class="form-control" id="inputName">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail">E-mailadres</label>
+                        <input type="email" name="email" required class="form-control" autocomplete="off"
+                               id="inputEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputStudentNumber">Studentnummer</label>
+                        <input type="number" name="student_number" id="inputStudentNumber" required class="form-control"
+                               autocomplete="off"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="selectClasses">Klassen</label>
+                        <select required name="classes" class="form-control" id="selectClasses" multiple>
+                            {% for class in classes %}
+                            <option value="{{ class.id }}">{{ class.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <small>Selecteer meerdere opties door de Ctrl-toets ingedrukt te houden terwijl u klikt.</small>
+                    </div>
+                    <div class="modal-footer mt-4 px-0">
+                        <button type="button" class="btn" style="background: #D30E4C; color: white"
+                                data-dismiss="modal">Annuleren
+                        </button>
+
+                        <button type="button" id="saveBtn" class="btn" style="background: #3CAAD7;  color: white">Opslaan</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,11 @@
+{% include "layout.html" %}
+{% block content %}
+{% include "navigation.html" %}
+<div class="container">
+    <div class="qrcode">
+        <h2>QR Code</h2>
+        <img class="mt-3" src="{{ qrcode('https://127.0.0.1/check-in/' + id) }}"><br><br>
+        <a style="color: #3CAAD7;" href="{{ 'http://127.0.0.1:81/check-in/form/' + id }}">{{ 'http://127.0.0.1:81/check-in/form/' + id }}</a>
+    </div>
+</div>
+{% endblock %}

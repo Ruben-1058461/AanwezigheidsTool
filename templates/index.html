@@ -1,0 +1,60 @@
+{% include "layout.html" %}
+{% block content %}
+{% include "navigation.html" %}
+<div class="index">
+    <div class="container">
+        <div class="user">
+            <div class="grid">
+                <a href="/studenten_overzicht" class="item">
+                    <span class="material-icons tileIcon">person</span>
+                    <div class="flex">
+                        <h2>Studenten</h2>
+                        <div class="bttn" style="color: black; font-size: 50px">
+                            <span class="material-icons">keyboard_arrow_right</span>
+                        </div>
+                    </div>
+                </a>
+                {% if session["user_role"] == 3 %}
+                <a href="/docenten_overzicht" class="item">
+                    <span class="fa-solid fa-person-chalkboard tileIcon"></span>
+                    <div class="flex">
+                        <h2>Docenten</h2>
+                        <div class="bttn">
+                            <span class="material-icons">keyboard_arrow_right</span>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+
+                <a href="/lessen_overzicht" class="item">
+                    <span class="material-icons tileIcon">school</span>
+                    <div class="flex">
+                        <h2>Lessen</h2>
+                        <div class="bttn">
+                            <span class="material-icons">keyboard_arrow_right</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="/klassen_overzicht" class="item">
+                    <span class="material-icons tileIcon">group</span>
+                    <div class="flex">
+                        <h2>Klassen</h2>
+                        <div class="bttn">
+                            <span class="material-icons">keyboard_arrow_right</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="/rapportage" class="item">
+                    <span class="material-icons tileIcon">insights</span>
+                    <div class="flex">
+                        <h2>Rapportage</h2>
+                        <div class="bttn">
+                            <span class="material-icons">keyboard_arrow_right</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+<!-- Modal -->
+<div class="modal fade" id="teacherModalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" style="color:#272727;">Docent wijzigen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="error"></div>
+                <form action="/teachers/" method="post" id="teacherForm">
+                    <input type="hidden" id="inputId" name="id">
+                    <div class="form-group">
+                        <label for="inputName">Naam</label>
+                        <input type="text" name="name" required class="form-control" id="inputName">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail">E-mailadres</label>
+                        <input type="email" name="email" required class="form-control" autocomplete="off"
+                               id="inputEmail">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

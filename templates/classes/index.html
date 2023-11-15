@@ -1,0 +1,53 @@
+{% include "layout.html" %}
+{% include "/classes/class_modal.html" %}
+{% block content %}
+{% include "navigation.html" %}
+<div class="container">
+    <div class="index" id="classes">
+        {% include "delete_row_confirmation_modal.html" %}
+        <div class="top-content">
+            <h1><span class="material-icons" style="font-size: 40px;">group</span> Klassen</h1>
+            <a href="#" class="button" id="btnCreate" data-toggle="modal" data-target="#classModal">
+                Klas toevoegen</a>
+        </div>
+        <div class="accordion mb-5" id="filterAccordion">
+            <div class="card">
+              <div class="card-header" id="filterAccordionHeader">
+                <h2 class="mb-0">
+                  <button class="btn btn-link btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <span class="material-icons">filter_alt</span>Filters                    
+                  </button>
+                </h2>
+              </div>
+              <div id="collapseOne" class="collapse" aria-labelledby="filterAccordionHeader" data-parent="#filterAccordion">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="filterName">Naam</label>
+                        <input type="text" name="name" required class="form-control w-25" id="filterName">
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <table class="table">
+            <thead style="background-color: black; color: #fff;">
+            <tr>
+                <th scope="Name">Naam</th>
+                <th scope="Delete">Verwijderen</th>
+                <th scope="Change">Wijzig</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for class in classes %}
+            <tr>
+                <td>{{ class.name }}</td>
+                <td><a href="#" class="red showDeleteRowModal" data-id="{{ class.id }}" data-toggle="modal" data-target="#deleteRowConfirmation">Verwijderen</a></td>
+                <td><a href="#" class="blue" data-id="{{ class.id }}" id="btnEdit" data-toggle="modal" 
+                    data-target="#classModal">Wijzigen</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
